@@ -63,11 +63,7 @@ section h2 {
     max-width: 700px;
     margin: 0 auto;
     font-weight: 400;
-    transition: text-shadow 0.3s ease;
-}
-
-#about p:hover {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
 }
 
 #skills ul {
@@ -86,13 +82,7 @@ section h2 {
     border-radius: 25px;
     font-weight: 500;
     font-size: 0.9rem;
-    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
-    transition: all 0.3s ease;
-}
-
-#skills li:hover {
-    box-shadow: 0 4px 8px rgba(74, 144, 226, 0.6), 0 0 10px rgba(74, 144, 226, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3), 0 0 8px rgba(74, 144, 226, 0.4);
 }
 
 #projects ul {
