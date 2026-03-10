@@ -1,25 +1,6 @@
 웹페이즈 형식의 포트폴리오
 정보: 선린인터넷고등학교 1학년 이진헌
 Firestore Database를 이용하여 웹사이트를 제작
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDN2tvyH9yzCFtcAuzUWQYTuA4g6s_bCj8",
-    authDomain: "portfolio-6fded.firebaseapp.com",
-    projectId: "portfolio-6fded",
-    storageBucket: "portfolio-6fded.firebasestorage.app",
-    messagingSenderId: "365358771894",
-    appId: "1:365358771894:web:6fd6cdd1745a3f346bc017"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
 
 어떤 일이 있어도 원본 MD 파일은 훼손하지 않는다.
 
