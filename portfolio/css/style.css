@@ -102,7 +102,7 @@ a { color: inherit; }
 
 .hero {
     position: relative;
-    padding: 54px 0 22px;
+    padding: 28px 0 10px;
 }
 .hero-inner {
     display: grid;
@@ -161,7 +161,7 @@ a { color: inherit; }
 }
 
 .section {
-    padding: 26px 0;
+    padding: 16px 0;
 }
 .section-head {
     display: grid;
