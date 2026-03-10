@@ -106,13 +106,12 @@ async function bootstrap() {
     if (!container || !statusEl || !searchEl) return;
 
     let projects = [];
-    const sourceLabel = "정적";
     projects = SAMPLE_PROJECTS.map(normalizeProject);
 
     const update = () => {
         const query = searchEl.value.trim();
-        const count = renderProjects(container, projects, query);
-        statusEl.textContent = `${sourceLabel} · ${count}개 표시`;
+        renderProjects(container, projects, query);
+        statusEl.textContent = "";
     };
 
     searchEl.addEventListener("input", update);
