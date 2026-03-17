@@ -3,8 +3,8 @@ const SAMPLE_PROJECTS = [
         title: "AI Financial Intelligence Market",
         summary: "AI 기반 금융 정보 시장 서비스",
         description:
-            "최신 금융 뉴스를 자동으로 수집(크롤링)하고, OpenAI의 AI 모델을 활용해 뉴스 내용을 요약한 뒤 시장 영향도와 감정(긍정/부정)을 분석하여 뉴스 등급을 분류하는 서비스입니다. 사용자는 웹사이트를 통해 분석된 금융 정보를 구매할 수 있으며, 블록체인 기반 결제 시스템을 사용하여 글로벌 사용자도 안전하게 구매할 수 있습니다.",
-        tags: ["AI", "OpenAI", "Fintech", "Blockchain"],
+            "최신 금융 뉴스를 자동으로 수집(크롤링)하고, OpenAI의 AI 모델을 활용해 뉴스 내용을 요약한 뒤 시장 영향도와 감정(긍정/부정)을 분석하여 뉴스 등급을 분류, 판매하는 서비스입니다. 사용자는 웹사이트를 통해 분석된 금융 정보를 구매할 수 있으며, 블록체인 기반 결제 시스템을 사용하여 글로벌 사용자도 안전하게 구매할 수 있습니다.",
+        tags: ["AI", "OpenAI", "Blockchain"],
         badge: "AI 활용 · 바이브코딩 프로젝트",
         youtube: "https://youtu.be/UN_6pcpfjCc?si=5h2kGI3kFph4S7WR"
     },
@@ -13,7 +13,7 @@ const SAMPLE_PROJECTS = [
         summary: "Minecraft 계정 작업 자동화 매크로",
         description:
             "Python과 Selenium을 활용하여 Minecraft 웹사이트에서 닉네임 변경 과정을 반복하고, 로그인 하는 과정을 자동화하는 매크로 프로그램을 개발하였습니다. CSS Selector와 XPath를 이용해 페이지 이동, 입력 및 클릭 등의 과정을 자동으로 실행하도록 구현하였고, 이를 통해 직접 해야하는 로그인 과정을 자동화했습니다.",
-        tags: ["Python", "Selenium", "Automation", "Web"],
+        tags: ["Python", "Selenium"],
         youtube: "https://youtu.be/1f42rbSqGUw?si=HuBLhOpkPE8udf5s"
     }
 ];
