@@ -366,6 +366,7 @@ body::before {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
+    align-items: start;
 }
 
 .project {
@@ -378,7 +379,6 @@ body::before {
     display: grid;
     gap: 14px;
     align-content: start;
-    min-height: 100%;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
     transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
@@ -388,13 +388,6 @@ body::before {
         linear-gradient(180deg, rgba(106, 169, 255, 0.12), rgba(255, 255, 255, 0.04)),
         rgba(255, 255, 255, 0.055);
     border-color: rgba(106, 169, 255, 0.4);
-}
-.project-eyebrow {
-    color: rgba(106, 169, 255, 0.9);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
 }
 .project-title {
     margin: 0;
@@ -408,6 +401,19 @@ body::before {
     color: rgba(255, 255, 255, 0.92);
     font-weight: 600;
 }
+.project-badge {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(106, 169, 255, 0.34);
+    background: rgba(106, 169, 255, 0.12);
+    color: #dbe9ff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
 .project-copy-label {
     color: rgba(255, 255, 255, 0.55);
     font-size: 0.8rem;
@@ -417,7 +423,6 @@ body::before {
 .project-desc {
     color: var(--muted);
     margin: 0;
-    min-height: 8.4em;
 }
 .project-tags {
     display: flex;
@@ -436,7 +441,6 @@ body::before {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    margin-top: auto;
 }
 .project-action {
     display: inline-flex;
