@@ -37,7 +37,6 @@
                         <a class="btn primary" href="#projects">프로젝트 보기</a>
                         <a class="btn ghost" href="https://github.com/J1n-h" target="_blank" rel="noreferrer">GitHub</a>
                     </div>
-                    <p class="meta">GitHub Pages로 배포 가능한 정적 포트폴리오입니다.</p>
                 </div>
                 <div class="hero-card" aria-label="요약 카드">
                     <div class="stat">
@@ -75,14 +74,6 @@
                     <h2>프로젝트</h2>
                 </div>
 
-                <div class="toolbar">
-                    <label class="field">
-                        <span class="field-label">검색</span>
-                        <input id="project-search" type="search" placeholder="제목/설명/태그로 검색" autocomplete="off" />
-                    </label>
-                    <div class="status" id="project-status" role="status" aria-live="polite"></div>
-                </div>
-
                 <div class="projects" id="project-list" aria-label="프로젝트 목록">
                     <!-- JS에서 프로젝트 카드 렌더링 -->
                 </div>
@@ -96,13 +87,23 @@
                     <p>편하게 연락 주세요.</p>
                 </div>
                 <div class="contact-row">
-                    <a class="btn ghost" href="mailto:example@email.com">Email</a>
+                    <button class="btn ghost" id="copy-email" type="button">Email</button>
                     <a class="btn ghost" href="https://github.com/J1n-h" target="_blank" rel="noreferrer">GitHub</a>
                 </div>
-                <p class="note">메일 주소는 `index.html`에서 바꿔주세요.</p>
             </div>
         </section>
     </main>
+
+    <div class="modal-backdrop" id="video-modal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="video-title">
+            <div class="modal-header">
+                <div class="modal-title" id="video-title">YouTube</div>
+                <button class="modal-close" id="video-close" type="button" aria-label="닫기">닫기</button>
+            </div>
+            <div class="modal-body" id="video-body"></div>
+        </div>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <footer class="site-footer">
         <div class="container footer-inner">
