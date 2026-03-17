@@ -1,25 +1,30 @@
 const SAMPLE_PROJECTS = [
     {
         title: "AI Financial Intelligence Market",
-        description: "최신 금융 뉴스를 자동으로 수집(크롤링)하고, OpenAI의 AI 모델을 활용해 뉴스 내용을 요약한 뒤 시장 영향도와 감정(긍정/부정)을 분석하여 뉴스 등급을 분류하는 서비스입니다. 사용자는 웹사이트를 통해 분석된 금융 정보를 구매할 수 있으며, 블록체인 기반 결제 시스템을 사용하여 글로벌 사람들까지 안전하게 구매할 수 있습니다.",
-        tags: ["AI", "LLM", "Web"],
+        summary: "AI 기반 금융 정보 시장 서비스",
+        description:
+            "최신 금융 뉴스를 자동으로 수집(크롤링)하고, OpenAI의 AI 모델을 활용해 뉴스 내용을 요약한 뒤 시장 영향도와 감정(긍정/부정)을 분석하여 뉴스 등급을 분류하는 서비스입니다. 사용자는 웹사이트를 통해 분석된 금융 정보를 구매할 수 있으며, 블록체인 기반 결제 시스템을 사용하여 글로벌 사용자도 안전하게 구매할 수 있습니다.",
+        tags: ["AI", "OpenAI", "Fintech", "Blockchain"],
         youtube: "https://youtu.be/UN_6pcpfjCc?si=5h2kGI3kFph4S7WR"
     },
     {
         title: "Python과 Selenium을 활용한 Minecraft 웹사이트 자동화 매크로",
-        description: "Python과 Selenium을 활용하여 Minecraft 웹사이트에서 닉네임 변경 과정을 반복하고, 로그인 하는 과정을 자동화하는 매크로 프로그램을 개발하였습니다. CSS Selector와 XPath를 이용해 페이지 이동, 입력 및 클릭 등의 과정을 자동으로 실행하도록 구현하였고, 이를 통해 직접 해야하는 로그인 과정을 자동화 했습니다.",
-        tags: ["Python", "Selenium", "Automation"],
+        summary: "Minecraft 계정 작업 자동화 매크로",
+        description:
+            "Python과 Selenium을 활용하여 Minecraft 웹사이트에서 닉네임 변경 과정을 반복하고, 로그인 하는 과정을 자동화하는 매크로 프로그램을 개발하였습니다. CSS Selector와 XPath를 이용해 페이지 이동, 입력 및 클릭 등의 과정을 자동으로 실행하도록 구현하였고, 이를 통해 직접 해야하는 로그인 과정을 자동화했습니다.",
+        tags: ["Python", "Selenium", "Automation", "Web"],
         youtube: "https://youtu.be/1f42rbSqGUw?si=HuBLhOpkPE8udf5s"
     }
 ];
 
 function normalizeProject(input) {
     const title = typeof input?.title === "string" ? input.title.trim() : "";
+    const summary = typeof input?.summary === "string" ? input.summary.trim() : "";
     const description = typeof input?.description === "string" ? input.description.trim() : "";
 
     const tagsRaw = input?.tags;
     const tags = Array.isArray(tagsRaw)
-        ? tagsRaw.map(t => String(t).trim()).filter(Boolean).slice(0, 8)
+        ? tagsRaw.map((tag) => String(tag).trim()).filter(Boolean).slice(0, 8)
         : [];
 
     const link = typeof input?.link === "string" ? input.link.trim() : "";
@@ -28,7 +33,8 @@ function normalizeProject(input) {
 
     return {
         title: title || "Untitled",
-        description: description || "설명이 아직 등록되지 않았습니다.",
+        summary,
+        description: description || "프로젝트 설명이 아직 등록되지 않았습니다.",
         tags,
         link,
         repo,
@@ -38,65 +44,121 @@ function normalizeProject(input) {
 
 function el(tag, attrs = {}, children = []) {
     const node = document.createElement(tag);
-    for (const [k, v] of Object.entries(attrs)) {
-        if (v === undefined || v === null) continue;
-        if (k === "class") node.className = String(v);
-        else if (k === "text") node.textContent = String(v);
-        else if (k.startsWith("on") && typeof v === "function") node.addEventListener(k.slice(2), v);
-        else node.setAttribute(k, String(v));
+
+    for (const [key, value] of Object.entries(attrs)) {
+        if (value === undefined || value === null) continue;
+
+        if (key === "class") {
+            node.className = String(value);
+            continue;
+        }
+
+        if (key === "text") {
+            node.textContent = String(value);
+            continue;
+        }
+
+        if (key.startsWith("on") && typeof value === "function") {
+            node.addEventListener(key.slice(2), value);
+            continue;
+        }
+
+        node.setAttribute(key, String(value));
     }
+
     for (const child of children) {
         if (child === null || child === undefined) continue;
         node.append(child);
     }
+
     return node;
 }
 
 function youtubeToEmbed(url) {
     try {
-        const u = new URL(url);
-        if (u.hostname === "youtu.be") {
-            const id = u.pathname.replace("/", "");
+        const parsed = new URL(url);
+
+        if (parsed.hostname === "youtu.be") {
+            const id = parsed.pathname.replace("/", "");
             return `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
         }
-        if (u.hostname.includes("youtube.com")) {
-            const id = u.searchParams.get("v");
-            if (id) return `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+
+        if (parsed.hostname.includes("youtube.com")) {
+            const id = parsed.searchParams.get("v");
+            if (id) {
+                return `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+            }
         }
     } catch {
-        // ignore
+        // ignore invalid urls
     }
+
     return url;
+}
+
+function createProjectActions(project, onOpenVideo) {
+    const actions = [];
+
+    if (project.youtube) {
+        actions.push(
+            el(
+                "button",
+                {
+                    class: "project-action primary",
+                    type: "button",
+                    onclick: () => onOpenVideo?.(project.title, project.youtube)
+                },
+                ["영상 보기"]
+            )
+        );
+    }
+
+    if (project.link) {
+        actions.push(
+            el("a", {
+                class: "project-action ghost",
+                href: project.link,
+                target: "_blank",
+                rel: "noreferrer",
+                text: "서비스 보기"
+            })
+        );
+    }
+
+    if (project.repo) {
+        actions.push(
+            el("a", {
+                class: "project-action ghost",
+                href: project.repo,
+                target: "_blank",
+                rel: "noreferrer",
+                text: "코드 보기"
+            })
+        );
+    }
+
+    return el("div", { class: "project-actions" }, actions);
 }
 
 function renderProjects(container, projects, onOpenVideo) {
     container.innerHTML = "";
 
     for (const project of projects) {
-        const tags = el("div", { class: "project-tags" }, (project.tags || []).map(t => el("span", { class: "tag", text: t })));
-
-        const links = el("div", { class: "project-links" }, []);
-        if (project.link) links.append(el("a", { href: project.link, target: "_blank", rel: "noreferrer", text: "Link" }));
-        if (project.repo) links.append(el("a", { href: project.repo, target: "_blank", rel: "noreferrer", text: "Repo" }));
-        if (project.youtube) {
-            links.append(
-                el("a", {
-                    href: "#",
-                    text: "YouTube",
-                    onclick: (e) => {
-                        e.preventDefault();
-                        onOpenVideo?.(project.title, project.youtube);
-                    }
-                })
-            );
-        }
+        const tags = el(
+            "div",
+            { class: "project-tags" },
+            project.tags.map((tag) => el("span", { class: "tag", text: tag }))
+        );
 
         container.append(
             el("article", { class: "project" }, [
-                el("div", { class: "project-title", text: project.title }),
+                el("div", { class: "project-eyebrow", text: "Featured Project" }),
+                el("h3", { class: "project-title", text: project.title }),
+                project.summary ? el("p", { class: "project-summary", text: project.summary }) : null,
+                el("div", { class: "project-copy-label", text: "프로젝트 설명" }),
                 el("p", { class: "project-desc", text: project.description }),
                 tags,
-                links
+                createProjectActions(project, onOpenVideo)
             ])
         );
     }
@@ -105,10 +167,11 @@ function renderProjects(container, projects, onOpenVideo) {
 function showToast(message) {
     const toast = document.getElementById("toast");
     if (!toast) return;
+
     toast.textContent = message;
     toast.setAttribute("data-show", "true");
-    window.clearTimeout(showToast._t);
-    showToast._t = window.setTimeout(() => toast.removeAttribute("data-show"), 1400);
+    window.clearTimeout(showToast._timeout);
+    showToast._timeout = window.setTimeout(() => toast.removeAttribute("data-show"), 1400);
 }
 
 async function bootstrap() {
@@ -125,6 +188,7 @@ async function bootstrap() {
 
     const closeModal = () => {
         if (!modal || !modalBody) return;
+
         modal.removeAttribute("data-open");
         modal.setAttribute("aria-hidden", "true");
         modalBody.innerHTML = "";
@@ -132,42 +196,50 @@ async function bootstrap() {
 
     const openVideo = (title, url) => {
         if (!modal || !modalTitle || !modalBody) return;
+
         modalTitle.textContent = title;
         modalBody.innerHTML = "";
+
         const iframe = document.createElement("iframe");
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
         iframe.allowFullscreen = true;
         iframe.src = youtubeToEmbed(url);
+
         modalBody.appendChild(iframe);
         modal.setAttribute("data-open", "true");
         modal.setAttribute("aria-hidden", "false");
     };
 
     if (modal) {
-        modal.addEventListener("click", (e) => {
-            if (e.target === modal) closeModal();
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) closeModal();
         });
     }
-    if (modalClose) modalClose.addEventListener("click", closeModal);
-    window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
+
+    if (modalClose) {
+        modalClose.addEventListener("click", closeModal);
+    }
+
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
     });
 
     if (copyEmailBtn) {
         copyEmailBtn.addEventListener("click", async () => {
             const email = "jinhundev@gmail.com";
+
             try {
                 await navigator.clipboard.writeText(email);
                 showToast("이메일이 복사되었습니다.");
             } catch {
-                const ta = document.createElement("textarea");
-                ta.value = email;
-                ta.style.position = "fixed";
-                ta.style.left = "-9999px";
-                document.body.appendChild(ta);
-                ta.select();
+                const textarea = document.createElement("textarea");
+                textarea.value = email;
+                textarea.style.position = "fixed";
+                textarea.style.left = "-9999px";
+                document.body.appendChild(textarea);
+                textarea.select();
                 document.execCommand("copy");
-                ta.remove();
+                textarea.remove();
                 showToast("이메일이 복사되었습니다.");
             }
         });
