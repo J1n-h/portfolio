@@ -137,12 +137,6 @@ body::before {
     color: var(--muted);
     max-width: 56ch;
 }
-.meta {
-    margin: 14px 0 0;
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.55);
-}
-
 .hero-card {
     border-radius: var(--radius);
     border: 1px solid var(--border);
@@ -494,6 +488,11 @@ body::before {
     justify-content: space-between;
     gap: 10px;
     color: rgba(255, 255, 255, 0.62);
+}
+.footer-note {
+    margin: 10px 0 0;
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 0.88rem;
 }
 .to-top {
     text-decoration: none;
